@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/Dr Garbage 4.4/features/com.drgarbage.controlflowgraphfactory_4.4.1.201408050542.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/Dr Garbage 4.4/plugins/com.drgarbage.controlflowgraphfactory.plugin_4.4.1.201408050542.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/Dr Garbage 4.4/plugins/com.drgarbage.core.plugin_4.4.1.201408050542.jar" sourcepath="C:/Users/Jenifer/Downloads/drgarbagetools-code-868-trunk"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/com.drgarbage.asm.util_5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/com.drgarbage.asm_5.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.draw2d_3.9.0.201212170307.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.ui.views_3.2.1.M20060906-0800.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.jface.jar secondattempt/org.eclipse.jface.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.equinox.common-3.6.0.v20100503.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.osgi-3.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/workbench-3.3.0-I20070608-1100.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/com.drgarbage.sourcecodevisualizer_4.4.0.201408050542.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/com.drgarbage.sourcecodevisualizer.plugin_4.4.0.201408050542.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/com.drgarbage.bytecodevisualizer.plugin_4.4.1.201408050542.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.swt.win32.win32.x86_64-4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jenifer/Downloads/org.eclipse.jdt.core-3.10.0.v20140604-1726.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
