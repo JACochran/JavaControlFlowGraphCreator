@@ -149,21 +149,22 @@ public class BaseCoverageServlet
 		return new String(encoded);
 	}
 
-	private static void exportJavaFile(Path fileLocation, String xmlOutputLocation, String dotOutputLocation) throws FileNotFoundException, IOException, ControlFlowGraphException 
+	private static void exportJavaFile(Path   javaFileLocation, 
+									   String xmlOutputLocation,
+									   String dotOutputLocation) throws FileNotFoundException, IOException, ControlFlowGraphException 
 	{
-		File file = fileLocation.toFile();
+		File file = javaFileLocation.toFile();
 
 		try (FileInputStream inputStream = new FileInputStream(file)) 
 		{
 			ClassFile classDoc = ClassFile.readClass(inputStream);
+			//TODO allow user to select the method
 
-			FilteringCodeVisitor visitor2 = getInstructionList(file.getAbsolutePath(),
-														       classDoc.getClassName(),
-															   classDoc.getClassSimpleName(),
-															   classDoc.getMethodSections().get(1).getName(), 
-															   classDoc.getMethodSections().get(1).getDescriptor());
+			FilteringCodeVisitor methodInstructions = getInstructionList(file.getAbsolutePath(),
+														                 classDoc.getMethodSections().get(1).getName(),
+															             classDoc.getMethodSections().get(1).getDescriptor());
 
-			ControlFlowGraphDiagram diagramFromFile = ControlFlowDiagramGraphFactory.buildBasicblockGraphDiagram(visitor2.getInstructions());
+			ControlFlowGraphDiagram diagramFromFile = ControlFlowDiagramGraphFactory.buildBasicblockGraphDiagram(methodInstructions.getInstructions());
 						
 			exportToDotFile(diagramFromFile, dotOutputLocation);
 			exportToXml(diagramFromFile, xmlOutputLocation);
@@ -194,37 +195,36 @@ public class BaseCoverageServlet
 		}		
 	}
 
-	/**
-	 * Returns instruction list.
+	/***
+	 * Returns the instructions for a given method in a java .class file
 	 * 
-	 * @param classPath
-	 * @param packageName
-	 * @param className
-	 * @param methodName
-	 * @param methodSig
-	 * @return instructions
+	 * @param filePath  The ".class" absolute path
+	 * @param methodName  the name of the method
+	 * @param methodSig the method signature (i.e. a method with a signature like "public static float abs(float a)" the signature would be"(F)F")
+	 * @return filtering code visitor
 	 * @throws ControlFlowGraphException
 	 * @throws IOException
 	 */
 	private static FilteringCodeVisitor getInstructionList(String filePath,
-			String packageName, String className, String methodName,
-			String methodSig) throws ControlFlowGraphException, IOException {
-		InputStream in = new FileInputStream(filePath);
+														   String methodName, 
+														   String methodSig) throws ControlFlowGraphException, IOException 
+	{
+		try(InputStream fileInputStream = new FileInputStream(filePath))
+		{
+			FilteringCodeVisitor   codeVisitor  = new FilteringCodeVisitor(methodName,	methodSig);		
+			MethodFilteringVisitor classVisitor = new MethodFilteringVisitor(codeVisitor);
+			ClassReader            classReader  = new ClassReader(fileInputStream, classVisitor);
+			
+			classReader.accept(classVisitor, 0);
+			
+			if (codeVisitor.getInstructions() == null) 
+			{
+				throw new ControlFlowGraphException("ControlFlowGraphGenerator: can't get method info of the " + methodName + methodSig);
 
-		FilteringCodeVisitor codeVisitor = new FilteringCodeVisitor(methodName,
-				methodSig);
-		MethodFilteringVisitor classVisitor = new MethodFilteringVisitor(
-				codeVisitor);
-		ClassReader cr = new ClassReader(in, classVisitor);
-		cr.accept(classVisitor, 0);
-		if (codeVisitor.getInstructions() == null) {
-			throw new ControlFlowGraphException(
-					"ControlFlowGraphGenerator: can't get method info of the "
-							+ methodName + methodSig);
+			}
 
-		}
-
-		return codeVisitor;
+			return codeVisitor;
+		}		
 	}
 
 }
