@@ -125,7 +125,7 @@ public class BaseCoverageServlet
 		frame.setVisible(true);
 	}
 	
-	public static void setOutputLocationPath(JFrame frame, JLabel outputLocationLabel, String fileFilter)
+	protected static void setOutputLocationPath(JFrame frame, JLabel outputLocationLabel, String fileFilter)
 	{
 		FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 		fd.setDirectory("C:\\");
